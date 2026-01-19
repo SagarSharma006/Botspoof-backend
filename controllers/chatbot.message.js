@@ -1,0 +1,186 @@
+import Bot from "../models/bot.model.js";
+import User from "../models/user.model.js";
+
+export const Message=async(req,res)=>{
+   try {
+    const {text}=req.body;
+ 
+    if(!text?.trim()){
+        return res.status(400).json({error:"Text cannot be empty"});
+    }
+
+    const user=await User.create({
+        sender:"user",
+        text
+    })
+    // Data
+    const botResponses={
+   
+  "hello": "Hello! How can I help you?",
+  "hi": "Hi there!",
+  "hey": "Hey!",
+  "good morning": "Good morning!",
+  "good afternoon": "Good afternoon!",
+  "good evening": "Good evening!",
+  "good night": "Good night!",
+  "how are you": "I am fine, thank you.",
+  "what is your name": "I am a chatbot.",
+  "who are you": "I am a virtual assistant.",
+  "who made you": "I was made by a developer.",
+  "what can you do": "I can answer basic questions.",
+  "are you real": "No, I am a virtual bot.",
+  "are you a bot": "Yes, I am a chatbot.",
+  "are you human": "No, I am not human.",
+  "where are you from": "I live on the internet.",
+  "do you sleep": "No, I work all the time.",
+  "do you eat": "No, I do not eat.",
+  "do you think": "I respond based on programming.",
+  "can you help me": "Yes, I will try my best.",
+  "thank you": "You're welcome!",
+  "thanks": "Glad to help!",
+  "bye": "Goodbye!",
+  "see you": "See you soon!",
+  "ok": "Okay!",
+  "yes": "Yes.",
+  "no": "No.",
+  "maybe": "Maybe.",
+  "what is mern stack": "MERN Stack means MongoDB, Express, React, and Node.js.",
+  "are you a mern developer": "Yes, I know MERN Stack.",
+  "what is mongodb": "MongoDB is a NoSQL database.",
+  "what is database": "Database stores data.",
+  "what is collection": "Collection stores documents.",
+  "what is document": "Document is a single record.",
+  "what is mongoose": "Mongoose connects MongoDB with Node.js.",
+  "what is express": "Express is a Node.js framework.",
+  "what is middleware": "Middleware runs between request and response.",
+  "what is node js": "Node.js runs JavaScript on server.",
+  "is node js single threaded": "Yes, but it supports async tasks.",
+  "what is npm": "npm is a package manager.",
+  "what is nodemon": "Nodemon restarts server automatically.",
+  "what is react": "React is a JavaScript UI library.",
+  "what is jsx": "JSX allows HTML inside JavaScript.",
+  "what is component": "Component is reusable UI.",
+  "what is props": "Props pass data.",
+  "what is state": "State stores data.",
+  "what is usestate": "useState manages state.",
+  "what is useeffect": "useEffect handles side effects.",
+  "what is api": "API connects systems.",
+  "what is rest api": "REST API uses HTTP methods.",
+  "what is crud": "CRUD means create read update delete.",
+  "what is get": "GET fetches data.",
+  "what is post": "POST sends data.",
+  "what is put": "PUT updates data.",
+  "what is delete": "DELETE removes data.",
+  "what is http": "HTTP is a protocol.",
+  "what is https": "HTTPS is secure HTTP.",
+  "what is cors": "CORS controls access.",
+  "what is localhost": "Localhost is your computer.",
+  "what is port": "Port identifies service.",
+  "what is async await": "It handles async code.",
+  "what is promise": "Promise gives future value.",
+  "what is try catch": "It handles errors.",
+  "what is error handling": "Error handling manages failures.",
+  "what is deployment": "Deployment makes app live.",
+  "what is netlify": "Netlify hosts frontend apps.",
+  "what is vercel": "Vercel deploys web apps.",
+  "what is render": "Render hosts backend apps.",
+  "what is github": "GitHub stores code.",
+  "what is git": "Git tracks code changes.",
+  "what is commit": "Commit saves changes.",
+  "what is push": "Push sends code online.",
+  "what is pull": "Pull gets code.",
+  "what is branch": "Branch is code version.",
+  "what is merge": "Merge joins branches.",
+  "what is frontend": "Frontend is UI.",
+  "what is backend": "Backend handles logic.",
+  "what is full stack": "Frontend plus backend.",
+  "what is mvc": "MVC means model view controller.",
+  "what is json": "JSON stores data format.",
+  "what is axios": "Axios makes API calls.",
+  "what is fetch": "Fetch calls APIs.",
+  "difference between fetch and axios": "Axios is simpler.",
+  "what is session": "Session stores user data.",
+  "what is cookie": "Cookie stores data in browser.",
+  "what is authentication": "Authentication checks user.",
+  "what is authorization": "Authorization gives permission.",
+  "what is jwt": "JWT is a token.",
+  "what is bcrypt": "Bcrypt hashes passwords.",
+  "what is hashing": "Hashing secures data.",
+  "what is encryption": "Encryption hides data.",
+  "what is env file": "Env stores secrets.",
+  "what is dotenv": "Dotenv loads env variables.",
+  "what is schema": "Schema defines structure.",
+  "what is model": "Model interacts with database.",
+  "what is validation": "Validation checks input.",
+  "what is pagination": "Pagination splits data.",
+  "what is sorting": "Sorting orders data.",
+  "what is filtering": "Filtering selects data.",
+  "what is cloud": "Cloud stores data online.",
+  "what is server": "Server provides services.",
+  "what is client": "Client uses services.",
+  "what is browser": "Browser opens websites.",
+  "what is chrome": "Chrome is a browser.",
+  "what is html": "HTML builds structure.",
+  "what is css": "CSS styles pages.",
+  "what is javascript": "JavaScript adds logic.",
+  "what is es6": "ES6 is modern JS.",
+  "what is arrow function": "Short function syntax.",
+  "what is map": "Map loops array.",
+  "what is filter": "Filter selects items.",
+  "what is reduce": "Reduce combines data.",
+  "what is spread operator": "Spread copies values.",
+  "what is destructuring": "Extract values.",
+  "what is hoisting": "JS moves declarations.",
+  "what is closure": "Function remembers scope.",
+  "what is scope": "Variable visibility.",
+  "what is let": "Block scoped variable.",
+  "what is const": "Constant variable.",
+  "what is var": "Old variable type.",
+  "what is loop": "Loop repeats code.",
+  "what is for loop": "For loop repeats steps.",
+  "what is while loop": "While loop runs condition.",
+  "what is array": "Array stores list.",
+  "what is object": "Object stores key value.",
+  "what is string": "String is text.",
+  "what is number": "Number is numeric.",
+  "what is boolean": "Boolean is true or false.",
+  "what is null": "Null means empty.",
+  "what is undefined": "Undefined means no value.",
+  "what is nan": "Not a number.",
+  "what is typecasting": "Change data type.",
+  "what is debugging": "Fixing bugs.",
+  "what is console log": "Print output.",
+  "what is vscode": "VS Code is editor.",
+  "what is terminal": "Terminal runs commands.",
+  "what is command": "Command executes action.",
+  "what is api testing": "Testing APIs.",
+  "what is postman": "Postman tests APIs.",
+  "what is swagger": "Swagger documents APIs.",
+  "what is rate limiting": "Limits requests.",
+  "what is security": "Protecting data.",
+  "what is performance": "Speed of app.",
+  "what is optimization": "Improve performance.",
+  "what is scalability": "Handle more users.",
+  "what is maintainability": "Easy to maintain.",
+  "what is bug": "Bug is error.",
+  "what is fix": "Fix solves bug."
+}
+
+
+const normalizedText = text.toLowerCase().trim();
+
+const botResponse = botResponses[normalizedText] || "Sorry, I don't understand that!!!";
+
+const bot = await Bot.create({
+    text: botResponse
+})
+
+return res.status(200).json({
+    userMessage:user.text,
+    botMessage:bot.text,
+})
+   } catch (error) {
+    console.log("Error in Message Controller:", error);
+    return res.status(500).json({error:"Internal Server Error"});
+   }
+}
